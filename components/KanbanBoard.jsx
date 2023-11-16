@@ -16,7 +16,7 @@ function KanbanBoard() {
     if (boards.length === 0) {
       const defaultBoard = {
         id: 1,
-        name: "🏝️ My Journey",
+        name: "My Journey 💫",
         desc: 'All about my life! ',
       };
       dispatch(addBoard(defaultBoard));

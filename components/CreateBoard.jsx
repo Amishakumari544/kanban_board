@@ -22,7 +22,10 @@ function Modal({ onClose, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!boardName || !boardDesc) return;
+    if (!boardName || !boardDesc) {
+      toast.error("please add the required details!")
+      return
+    };
     onSubmit({ name: boardName, desc: boardDesc });
     onClose();
   };

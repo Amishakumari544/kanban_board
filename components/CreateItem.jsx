@@ -8,6 +8,7 @@ function CreateItem({ onAddItem }) {
   const [dueDate, setDueDate] = useState(currentDate);
   const [subtasks, setSubtasks] = useState([]);
   const [subtaskInput, setSubtaskInput] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null); // New state for the selected image
   const [isModalOpen, setModalOpen] = useState(false);
   const modalRef = useRef(null);
 
@@ -38,6 +39,7 @@ function CreateItem({ onAddItem }) {
           itemDesc,
           dueDate,
           subtasks,
+          selectedImage, // Include the selected image in the newItem
         };
         onAddItem(newItem);
         toast.success("Auto-saved!");
@@ -49,7 +51,7 @@ function CreateItem({ onAddItem }) {
 
     // Clean up the timeout on component unmount or when inputs change
     return () => clearTimeout(autoSaveTimeout);
-  }, [itemName, itemDesc, dueDate, subtasks, onAddItem]);
+  }, [itemName, itemDesc, dueDate, subtasks, selectedImage, onAddItem]);
 
   function openModal() {
     setModalOpen(true);
@@ -62,6 +64,7 @@ function CreateItem({ onAddItem }) {
     setDueDate(currentDate);
     setSubtasks([]);
     setSubtaskInput("");
+    setSelectedImage(null); // Reset the selected image
   }
 
   function handleSubmit(e) {
@@ -78,6 +81,7 @@ function CreateItem({ onAddItem }) {
       itemDesc,
       dueDate,
       subtasks,
+      selectedImage, // Include the selected image in the newItem
     };
     onAddItem(newItem);
     toast.success("Task added!");
@@ -93,6 +97,11 @@ function CreateItem({ onAddItem }) {
 
   function handleRemoveSubtask(subtaskId) {
     setSubtasks(subtasks.filter((subtask) => subtask.id !== subtaskId));
+  }
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    setSelectedImage(file);
   }
 
   return (
@@ -167,6 +176,16 @@ function CreateItem({ onAddItem }) {
                     ))}
                   </ul>
                 )}
+              </div>
+
+              {/* Image upload */}
+              <div className="mt-4">
+                <label className="text-sm">Upload Image:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
               </div>
 
               <div className="flex justify-between cursor-pointer items-center p-1 mt-4">

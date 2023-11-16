@@ -6,7 +6,7 @@ import Board from "./Board";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addBoard } from "../Slice/boardSlice";
+import { addBoard } from "@/Slice/boardSlice";
 
 function KanbanBoard() {
   const boards = useSelector(state => state.board.board);
@@ -22,8 +22,6 @@ function KanbanBoard() {
       dispatch(addBoard(defaultBoard));
     }
   }, [boards, dispatch]);
- 
-
   return (
     <>
         <CreateBoard />

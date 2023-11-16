@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addBoard } from "../Slice/boardSlice";
+import { addBoard } from "@/Slice/boardSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 function Modal({ onClose, onSubmit }) {
   const [boardName, setBoardName] = useState("");
@@ -23,9 +24,9 @@ function Modal({ onClose, onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!boardName || !boardDesc) {
-      toast.error("please add the required details!")
-      return
-    };
+      toast.error("Add a name and description for the board");
+      return;
+    }
     onSubmit({ name: boardName, desc: boardDesc });
     onClose();
   };
@@ -89,6 +90,7 @@ function CreateBoard() {
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)} onSubmit={handleAddBoard} />
       )}
+      <Toaster />
     </>
   );
 }

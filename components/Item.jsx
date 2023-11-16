@@ -2,6 +2,8 @@ import { FiEdit2 } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Image from "next/image";
+
 
 function Item({ item, onDeleteItem, onUpdateItem }) {
   const [editing, setEditing] = useState(false);
@@ -10,6 +12,7 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
   const [editedDueDate, setEditedDueDate] = useState(item.dueDate);
   const [editedSubtasks, setEditedSubtasks] = useState(item.subtasks || []);
   const [subtaskInput, setSubtaskInput] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleUpdateItem = () => {
     onUpdateItem(item.id, {
@@ -17,6 +20,7 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
       itemDesc: editedItemDesc,
       dueDate: editedDueDate,
       subtasks: editedSubtasks,
+      selectedImage, // Include the selected image in the updated item
     });
     setEditing(false);
     toast.success("Task updated successfully!");
@@ -33,8 +37,13 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
     setEditedSubtasks(editedSubtasks.filter((subtask) => subtask.id !== subtaskId));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
+
   return (
-    <div className="border-l-4 border-t-2 border-t-gray-700 border-gray-600 bg-slate-50 drop-shadow-lg  shadow-gray-500/20 h-auto w-full py-3 px-4 rounded-xl  mb-2 ">
+    <div className="border-l-4 border-t-pink-700 border-pink-600 bg-slate-50 drop-shadow-lg  shadow-gray-500/20 h-auto w-full py-3 px-4  mb-2 ">
       {editing ? (
         <form className="flex flex-col gap-2" onSubmit={handleUpdateItem}>
           <input
@@ -92,6 +101,16 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
             )}
           </div>
 
+          {/* Image upload */}
+          <div className="mt-4">
+            <label className="text-sm">Upload Image:</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
+
           <div className="flex justify-between cursor-pointer items-center p-1 sm:p-2">
             <p
               className="font-bold text-md text-gray-950 cursor-pointer"
@@ -106,10 +125,19 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
         </form>
       ) : (
         <>
+         {item.selectedImage && (
+              <Image
+                src={URL.createObjectURL(item.selectedImage)}
+                alt="Selected"
+                className="rounded-md h-40 w-auto object-cover"
+                width={200}
+                height={200}
+              />
+            )}
           <h2 className="text-lg text-gray-800 capitalize">{item.itemName}</h2>
-          <p className="text-md text-stone-500 mb-6">{item.itemDesc}</p>
+          <p className="text-md text-stone-900 mb-6">{item.itemDesc}</p>
           <div className="flex justify-between items-center">
-            <p className="text-sm text-stone-400">{item.dueDate}</p>
+            <p className="text-sm text-gray-700">{item.dueDate}</p>
             {item.subtasks && item.subtasks.length > 0 && (
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-green-900 font-semibold">Subtasks:</label>
@@ -120,6 +148,7 @@ function Item({ item, onDeleteItem, onUpdateItem }) {
                 </ul>
               </div>
             )}
+           
             <div className="flex gap-1 cursor-pointer">
               <FiEdit2 onClick={() => setEditing(true)} />
               <MdDelete onClick={() => onDeleteItem(item.id)} />

@@ -101,7 +101,7 @@ function CreateItem({ onAddItem }) {
         className="px-4 py-2 w-full mt-2 text-left focus:outline-none"
         onClick={openModal}
       >
-        <span className="text-xl px-4 py-2 bg-gray-900 text-white text-left rounded-full">Add Task </span>
+        <span className="text-md px-4 py-2 bg-gray-900 text-white text-left rounded-full">Add Task </span>
       </button>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">

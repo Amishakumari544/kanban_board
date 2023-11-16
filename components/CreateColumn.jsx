@@ -47,7 +47,7 @@ function CreateColumn({ onAddCol, boardId, columnId }) {
     <>
       {addBtn ? (
         <button
-          className="mr-4 text-sm whitespace-nowrap sm:text-md sm:text-lg bg-gray-900 px-6 py-3 rounded-full text-stone-200 ml-4"
+          className="mr-4 font-semibold text-sm whitespace-nowrap sm:text-md sm:text-lg bg-gray-900 px-6 py-3 rounded-full text-stone-200 ml-4"
           onClick={() => setAddBtn(!addBtn)}
         >
           New Column

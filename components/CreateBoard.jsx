@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addBoard } from "@/Slice/boardSlice";
+import { addBoard } from "../Slice/boardSlice";
 
 function Modal({ onClose, onSubmit }) {
   const [boardName, setBoardName] = useState("");

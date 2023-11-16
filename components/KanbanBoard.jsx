@@ -6,7 +6,7 @@ import Board from "./Board";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { addBoard } from "@/Slice/boardSlice";
+import { addBoard } from "../Slice/boardSlice";
 
 function KanbanBoard() {
   const boards = useSelector(state => state.board.board);
@@ -17,7 +17,7 @@ function KanbanBoard() {
       const defaultBoard = {
         id: 1,
         name: "🏝️ My Journey",
-        desc: 'This you description of project ',
+        desc: 'All about my life! ',
       };
       dispatch(addBoard(defaultBoard));
     }

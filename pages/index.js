@@ -4,7 +4,7 @@ function App() {
   
   return (
     <div className="">
-      <h1 className="text-5xl mb-4 text-center font-bold mt-4">Dealintent Assignnment</h1>
+      <h1 className="text-5xl mb-4 text-center font-bold mt-4">Dealintent Assignment</h1>
       <KanbanBoard />
     </div>
   );

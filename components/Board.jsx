@@ -3,7 +3,7 @@
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { deleteBoard } from "@/Slice/boardSlice";
+import { deleteBoard } from "../Slice/boardSlice";
 import { useState } from "react";
 
 function Board({ board }) {
